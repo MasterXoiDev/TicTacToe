@@ -1,15 +1,16 @@
 import React from 'react';
 import Cell from './Cell';
 
-const Board = (props) => {
+const Board = ({onClick,cells}) => {
     return (
         <div className='Game-Board'>
             {
-                props.cells.map((item, index) => (
+                cells.map((item, index) => (
                 <Cell 
                     key={index}
                     value={item}
-                    onClick={()=>{props.onClick(index)}}
+                    onClick={()=>{onClick(index)}}
+                    className={item === 'X' ? "is-X" : item === "O" ? "is-O" : "" }
                 ></Cell>
             ))}
         </div>

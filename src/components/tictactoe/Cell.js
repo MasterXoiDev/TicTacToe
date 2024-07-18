@@ -7,9 +7,9 @@ const person = {
 
 const {name,age} = person
 console.log(name,age)
-const Cell = ({value,onClick}) => {
+const Cell = ({value,onClick,className}) => {
     return (
-        <div className='Board-Cell' onClick={onClick}>
+        <div className={`Board-Cell ${className}`} onClick={onClick}>
            {value}
         </div>
     );

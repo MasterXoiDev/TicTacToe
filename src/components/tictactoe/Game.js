@@ -23,14 +23,12 @@ const Game = () => {
     }
     return (
         <div>
-             <h1>{winner ? (`winner is ${isxNext ? 'O' : 'X'}`) : ""}</h1>
+             <h1>{winner ? (`winner is ${winner}`) : ""}</h1>
             <Board 
                 cells={board}
                 onClick={handleClick}
             >
             </Board>
-           
-
             <button  className='Reset-game' onClick={handleReset}>Reset Game</button>
         </div>
     );
