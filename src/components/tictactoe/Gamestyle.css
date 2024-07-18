@@ -1,0 +1,33 @@
+.Game-Board{
+    margin: 30px 0 0 30px;
+    width: 500px;
+    height: 500px;
+
+    display:grid ;
+    grid-gap: 25px;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3,1fr);
+
+}
+
+.Board-Cell{
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: red;
+}
+
+h1{
+    font-size: 50px;
+    font-weight: 800;
+    margin: 30px;
+}
+
+.Reset-game{
+    margin: 20px;
+    font-size: 30px;
+    border: solid 2px black;
+}
