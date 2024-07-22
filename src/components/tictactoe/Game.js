@@ -1,31 +1,76 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react';
 import Board from './Board';
 import "./Gamestyle.css";
 import '../../helper';
 import { calculateWinner } from '../../helper';
 
+const initialstate = {
+    board: Array(9).fill(null), 
+    isxNext: true
+}
+const gameReducer = (state,action)=>{
+    switch (action.type) {
+        case "CLICK":
+       {
+        const {board, isxNext} = state
+        const {index, winner } = action.payload
+        if(winner || board[index]) return state;
+        const nextState = JSON.parse(JSON.stringify(state))
+        nextState.board[index] = isxNext ? "X" : "O" 
+        nextState.isxNext = !isxNext
+        return nextState;
+       }
+        case "RESET":
+        // {   
+        //     const nextState = {
+        //             board: Array(9)
+        //             .fill(null),
+        //             isxNext: true
+        //         }
+        //     return nextState
+        // }
+        return initialstate;
+       
+        default:
+            break;
+    }
+    return state;
+ 
+}
 const Game = () => {
-    const [board, setBoard] = useState(Array(9)
-    .fill(null))
-    const [isxNext, setIsxNext] = useState(true)
-    const winner = calculateWinner(board)
+    
+    const [state,dispatch] = useReducer(gameReducer,initialstate)
+    const winner = calculateWinner(state.board)
     const handleClick = (index)=>{
-        const boardcoppy = [...board]
-        if(winner || boardcoppy[index])return;
-        boardcoppy[index] = isxNext ? "X" : "O"
-        setIsxNext(!isxNext)
-        setBoard(boardcoppy)
+        // const boardcoppy = [...state.board]
+        // if(winner || boardcoppy[index])return;
+        dispatch({
+            type: "CLICK",
+            payload:{
+                winner,
+                index,
+            },
+        })
     }
     const handleReset = ()=>{
-        setBoard(Array(9)
-        .fill(null))
-        setIsxNext(true)
+        dispatch(
+            {
+                type: "RESET",
+               
+            }
+        )
+        // setState({
+        //     board: Array(9)
+        //     .fill(null),
+        //     isxNext: true
+        // })
+    
     }
     return (
         <div>
              <h1>{winner ? (`winner is ${winner}`) : ""}</h1>
             <Board 
-                cells={board}
+                cells={state.board}
                 onClick={handleClick}
             >
             </Board>
