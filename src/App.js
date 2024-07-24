@@ -1,13 +1,25 @@
 
 import './App.css';
-import Game from './components/tictactoe/Game';
-
+import Card from './components/card/Card';
+import CardList from './components/card/CardList';
+import { ThemeProvider } from 'styled-components';
+const theme= {
+  color:{
+    white: "white"
+  } 
+}
 function App() {
-  
   return (
-    <div>
-      <Game></Game>
-    </div>
+    <ThemeProvider theme={theme} >
+        <CardList>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+              <Card></Card>
+        </CardList>
+    </ThemeProvider>
   );
 }
 

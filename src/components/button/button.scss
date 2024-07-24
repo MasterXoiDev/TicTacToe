@@ -1,0 +1,14 @@
+.btn{
+    background-color: rgb(46, 46, 223);
+    color: white;
+    font-size: 16px;
+    margin: 10px;
+    padding: 20px 30px;
+    border-radius: 20px;
+    &--btn-second{
+        background-color: white !important;
+        color: blue;
+        border: 2px;
+        padding: 20px;
+    }
+}
