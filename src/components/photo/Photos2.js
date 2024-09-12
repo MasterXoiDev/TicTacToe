@@ -1,43 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import axios from 'axios';
 
-const GetPhotos = (page) => {
-    return axios
-        .get(`https://picsum.photos/v2/list?page=${page}&limit=6`)
-        .then(function (response) {
-            return response.data
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
+const getPhotos  = (page) =>{
+  return axios.get(`https://picsum.photos/v2/list?page=${page}&limit=8`)
+  .then(function (response) {
+    console.log(response.data);
+    return response.data
+  })
+  .catch(function (error) {
+    console.log(error);
+  }) 
 }
 const Photos2 = () => {
-    const [arrPhoto, SetArrPhoto] = useState([])
-    // const [nextPage, SetNextPage] = useState(6)
-    const [page, SetPage] = useState(1)
+    const [page, setPage] =  useState(1)
+    const [arrPhotos, SetArrPhotos] =  useState([])
     useEffect(() => {
-       handleLoadmore()
-    }, [])
-    const handleLoadmore = ()=>{
-        SetPage(page + 1) 
-        GetPhotos(page).then((item) => {
-            const NewPhotos = [...arrPhoto, ...item]
-            SetArrPhoto(NewPhotos)
-            console.log(NewPhotos)
+        handleLoadMore()
+      }, [])
+    const handleLoadMore = () =>{
+        getPhotos(page).then((image)=>{
+            const newPhotos = [...arrPhotos, ...image]
+            SetArrPhotos(newPhotos)
         })
+        setPage(page + 1)
     }
     return (
         <div>
-            <div className='grid grid-cols-3 bg-white'>
-                {arrPhoto.map((item,index)=>(
-                    <div key={index} className='gap-4 rounded-lg px-4 py-7'>
-                        <img className='w-full object-cover h-[400px] rounded-lg ' src={item.download_url}></img>
-                    </div>
-                ))}
-        </div>
-        <div className='text-center bg-white'>
-        <buton onClick={handleLoadmore} className="bg-purple-600 inline-block p-8 rounded-lg font-bold text-white cursor-pointer hover:bg-purple-400">Load More</buton>
-        </div>
+            <div className='grid grid-cols-3 gap-3 '>
+        {arrPhotos.map((item, index) => (
+          <div key={index} className='bg-white rounded-lg p-3'>
+            <img className=' m-auto rounded-lg w-full object-cover h-[200px]' src={item.download_url}></img>
+          </div>
+        ))}
+      </div>
+      <div className='mt-10 text-center'>
+        <button onClick={handleLoadMore} className='inline-block px-4 py-4 bg-purple-600 text-white rounded-lg'>Load More</button>
+      </div>
         </div>
     );
 };
