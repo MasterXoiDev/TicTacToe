@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const PhotoGallary = () => {
     const { photos, cardItems } = useGalary()
     // console.log(photos)
-    console.log(cardItems);
+    // console.log(cardItems);
     
     
 

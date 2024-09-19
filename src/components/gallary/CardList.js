@@ -4,8 +4,8 @@ import { useGalary } from '../../contexts/GalaryContext';
 const CardList = () => {
     const { cardItems, removeCart } = useGalary()
 
-    console.log(cardItems.url);
-    console.log(cardItems);
+    // console.log(cardItems.url);
+    // console.log(cardItems);
 
     return (
         <div className='p-5'>
