@@ -1,5 +1,5 @@
 import React from 'react';
-import withLoading from './hoc/withLoading';
+import withLoading from './withLoading';
 
 const FetchingData = ({data}) => {
     return (

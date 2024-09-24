@@ -14,7 +14,7 @@ import Blog from './components/Blog';
 import Profile from './components/Profile';
 import Contact from './components/Contact';
 import Nav from './components/Nav';
-import FetchingData from './components/advanced-react/FetchingData';
+import FetchingData from './components/advanced-react/hoc/FetchingData';
 
 
 // const Counter = ()=>{
