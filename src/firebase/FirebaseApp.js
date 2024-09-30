@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, serverTimestamp } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, limit, onSnapshot, query, serverTimestamp, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { db } from './firebase-config';
 
@@ -34,12 +34,12 @@ const FirebaseApp = () => {
               });
             });
             setPost(posts);
-            const docRefSigle = doc(db,"posts", "lq8ctVJfpZrE8DFlStFi")
-            getDoc(docRefSigle).then((doc)=>{
-              console.log(doc.id, doc.data());
-            })
+            // update dữ liệu qua id 
+            // const docRefSigle = doc(db,"posts", "lq8ctVJfpZrE8DFlStFi")
+            // getDoc(docRefSigle).then((doc)=>{
+            //   console.log(doc.id, doc.data());
+            // })
           }) }, []);
-         
     const handleUpdatePost = (e)=>{
         e.preventDefault()
         addDoc(colRef, {
@@ -52,14 +52,29 @@ const FirebaseApp = () => {
             console.log(error);
         })
     }
-
     const handleRemovePost = async(e)=>{
         e.preventDefault()
         const conRefDelete = await doc(db,"posts", postId)
         deleteDoc(conRefDelete)
         console.log("success");
-        
     }
+
+    useEffect(()=>{
+      // firebase queries
+      const q = query(colRef, where("author","==","xoiminhnhat"),  limit(2))
+      onSnapshot(q, (snapshot)=>{
+        const posts = [];
+        snapshot.docs.forEach((doc)=>{
+          posts.push({
+            id: doc.id,
+           ...doc.data()
+          })
+        })
+        console.log(posts);
+      })
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
     return (
         <div>
             <div className="w-full max-w-[500px] mx-auto bg-white shadow-lg p-5 mb-10">
